@@ -91,15 +91,11 @@
         <form id="signup-form-element" method='post'>
             {% csrf_token %}
             <div class="mb-3">
-                {{form.user_name}}
-                {% comment %} <input type="text" class="form-control" id="signup-name" placeholder="Full Name" required> {% endcomment %}
-            </div>
-            <div class="mb-3">
-                {{form.user_email}}
+                {{form.email}}
                 {% comment %} <input type="email" class="form-control" id="signup-email" placeholder="Email address" required> {% endcomment %}
             </div>
             <div class="mb-4">
-                {{form.user_password}}
+                {{form.password}}
                 {% comment %} <input type="password" class="form-control" id="signup-password" placeholder="Password" required> {% endcomment %}
             </div>
             <div class="d-grid gap-2 mb-3">
@@ -107,7 +103,7 @@
             </div>
             <hr>
             <p class="text-muted">
-                Already have an account? <a href="{% url "login" %}" class="toggle-link">Log In</a>
+                Already have an account? <a href="login.html" class="toggle-link">Log In</a>
             </p>
         </form>
     </div>

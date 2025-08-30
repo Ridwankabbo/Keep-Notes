@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import login
 
 # Create your views here.
 
@@ -21,11 +22,14 @@ def singUp(request):
             check_email = User.objects.filter(email = email)
             if not check_email:
                 
-                User.objects.create(
+                user = User.objects.create(
                     username = name,
                     email = email,
                     password = password
                 )
+                login(request, user)
+                
+                return redirect('user-dashboard')
                 
                 # print ("email already exixt")
             else:
@@ -38,5 +42,26 @@ def singUp(request):
         
     return render(request, 'singup.html', {'form': form})
 
+def UserLogin(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            # useremail = form.cleaned_data['user_email']
+            # userpassword = form.cleaned_data['user_password']
+            # user = User.objects.filter(email = useremail) 
+            # if user.password == userpassword:
+                
+            login(request,)
+            return redirect('user-dashboard')
+    else:
+        form = UserLoginForm()
+    return render(request, 'singin.html', {'form':form})
+
 def user_dashboard(request):
     return render(request, 'user-dashboard.html')
+
+def insertNotes(request):
+    
+    return 
+
+
