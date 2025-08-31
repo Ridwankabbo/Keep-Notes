@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, InsertNewNotes
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import login
@@ -62,6 +62,15 @@ def user_dashboard(request):
 
 def insertNotes(request):
     
-    return 
+    if request.method == 'POST':
+        forms = InsertNewNotes(request.POST)
+        if forms.is_valid():
+            notes_title = forms.cleaned_data['notes_title']
+            notes_content = forms.cleaned_data['notes_content']
+    else:
+        form = InsertNewNotes()
+            
+    
+    return render(request, 'insertNotes.html', {'form':form})
 
 
