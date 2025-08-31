@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, UserLoginForm, InsertNewNotes
 from django.contrib.auth.models import User
+from .models import Notes
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -8,6 +9,11 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+# Global variables
+# NOTES = Notes()
+# USER_ID = 0
+
+# Views 
 def index(request):
     
     return render(request, 'index.html')
@@ -66,26 +72,52 @@ def UserLogout(request):
 
 # @login_required()
 def user_dashboard(request):
+    user = request.user
+    context = {
+        "Notes":Notes.objects.filter(user_id = user)
+    }
+    print(context.get("Notes"))
     
-    return render(request, 'user-dashboard.html')
+    return render(request, 'user-dashboard.html', context)
 
 def insertNotes(request):
-    
+    user = request.user
     if request.method == 'POST':
         form = InsertNewNotes(request.POST)
         if form.is_valid():
             notes_title = form.cleaned_data['notes_title']
             notes_content = form.cleaned_data['notes_content']
-            # print(notes_title, notes_content)
-            
-            
+            # user = User.objects.filter(id = user_id)
+            Notes.objects.create(
+                notes_title = notes_title,
+                notes_text = notes_content, 
+                user_id = user
+            )
             
             return redirect('user-dashboard')
     else:
         form = InsertNewNotes()   
-        
-    
     
     return render(request, 'insertNotes.html', {'form': form})
 
+def EditeNotes(request, notes_id):
+    
+    note_to_edite = Notes.objects.filter(id= notes_id)
+    
+    if request.method == 'POST':
+        form = InsertNewNotes(request.POST, initial=note_to_edite)
+        
+        if form.is_valid():
+            
+            form.save()
+            
+            return redirect('user-dashboard')
+    else:
+        form = InsertNewNotes(initial = note_to_edite)
+    
+    return render(request, 'editeNotes.html', {"form": form})
+
+def DeleteNotes(request, note_id):
+    Notes.objects.filter(id=note_id).delete()
+    return redirect('user-dashboard')
 

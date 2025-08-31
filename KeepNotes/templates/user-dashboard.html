@@ -9,12 +9,18 @@
                 <h1 class="text-center fw-bold text-dark my-4">My Notes</h1>
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="notes-container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gap-4 g-3" id="notes-container">
             <!-- Notes will be dynamically injected here -->
-             <div class="p-2">
-                <h2 class="text-center">{{notestitle}}</h2>
-                <p class="p-2">{{notescontent}}</p>
-             </div>
+            {% for note in Notes  %}
+                <div class="p-4 bg-light border border-3 rounded">
+                    <h2 class="text-center">{{note.notes_title}}</h2>
+                    <p class="p-2">{{note.notes_text}}</p>
+                    <div class=" px-5 row  row-cols-2  text-center">
+                        <a href="{% url "edite-notes" notes_id=note.id %}" class="btn btn-warning">Edite</a>
+                        <a href="{% url "delete-note" note_id=note.id %}" class="btn btn-danger"> Delete</a>
+                    </div>
+                </div> 
+            {% endfor %}
         </div>
     </main>
 
