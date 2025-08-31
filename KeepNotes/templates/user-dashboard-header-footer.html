@@ -89,6 +89,12 @@
                 <button class="btn btn-add-note" id="add-note-btn">
                     <a href="{% url 'insert-new-notes' %}" class="text-white"><i class="fas fa-plus me-2"></i>New Note</a>
                 </button>
+                <form action="{% url "logout" %}" method='post'>
+                    {% csrf_token %}
+                    <button class="btn btn-add-note" id="add-note-btn">
+                        log out
+                    </button>
+                </form>
             </div>
         </div>
     </nav>

@@ -9,6 +9,7 @@
                 <div class="card shadow-sm rounded-4">
                     <div class="card-body p-4">
                         <form id="note-form" method='post'>
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label for="note-title" class="form-label fw-bold">Title</label>
                                 {{form.notes_title}}

@@ -87,23 +87,27 @@
 <body>
 
     <div class="auth-container">
-        <h2 class="form-title">Sign Up</h2>
-        <form id="signup-form-element" method='post'>
+        <h2 class="form-title">Sign in</h2>
+        <form  id="signup-form-element" method='post'>
             {% csrf_token %}
-            <div class="mb-3">
-                {{form.email}}
-                {% comment %} <input type="email" class="form-control" id="signup-email" placeholder="Email address" required> {% endcomment %}
+            {% comment %} <div class="mb-3">
+                <label for="{{form.username.id_for_label}}">{{form.username.label}}</label>
+                {{form.username}}
             </div>
             <div class="mb-4">
+                <label for="{{form.password.id_for_label}}">{{form.password.label}}</label>
                 {{form.password}}
-                {% comment %} <input type="password" class="form-control" id="signup-password" placeholder="Password" required> {% endcomment %}
+            </div> {% endcomment %}
+
+            <div class="m-4">
+                {{form}}
             </div>
             <div class="d-grid gap-2 mb-3">
-                <button type="submit" class="btn btn-primary-custom">Sign Up</button>
+                <button type="submit" class="btn btn-primary-custom">Log in</button>
             </div>
             <hr>
             <p class="text-muted">
-                Already have an account? <a href="login.html" class="toggle-link">Log In</a>
+                Already have an account? <a href="{% url "singup" %}" class="toggle-link">sing up</a>
             </p>
         </form>
     </div>

@@ -90,17 +90,21 @@
         <h2 class="form-title">Sign Up</h2>
         <form id="signup-form-element" method='post'>
             {% csrf_token %}
-            <div class="mb-3">
-                {{form.user_name}}
-                {% comment %} <input type="text" class="form-control" id="signup-name" placeholder="Full Name" required> {% endcomment %}
-            </div>
-            <div class="mb-3">
-                {{form.user_email}}
-                {% comment %} <input type="email" class="form-control" id="signup-email" placeholder="Email address" required> {% endcomment %}
-            </div>
-            <div class="mb-4">
-                {{form.user_password}}
-                {% comment %} <input type="password" class="form-control" id="signup-password" placeholder="Password" required> {% endcomment %}
+            {% comment %} <div class="mb-3">
+                <label for="{{form.username.id_for_label}}">{{form.username.label}}</label>
+                {{form.username}}
+            </div> {% endcomment %}
+            {% comment %} <div class="mb-3">
+                <label for="{{form.email.id_for_label}}">{{form.email.label}}</label>
+                {{form.email}}
+                <input type="email" class="form-control" id="signup-email" placeholder="Email address" required>
+            </div> {% endcomment %}
+            {% comment %} <div class="mb-4">
+                <label for="{{form.password.id_for_label}}">{{form.password.label}}</label>
+                {{form.password}}
+            </div> {% endcomment %}
+            <div class="m-4">
+                {{form}}
             </div>
             <div class="d-grid gap-2 mb-3">
                 <button type="submit" class="btn btn-primary-custom">Sign Up</button>
