@@ -1,0 +1,67 @@
+{% extends "user-dashboard-header-footer.html" %}
+
+{% block main-section %}
+    <!-- Profile Hero and Details -->
+            <div class="bg-gradient-to-r from-blue-100 via-purple-100 to-yellow-100 p-6 rounded-xl shadow-lg mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://placehold.co/80x80/fff/3b82f6?text=A" alt="Profile" class="rounded-full border-4 border-white shadow-md">
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800">Alexa Rawles</h2>
+                            <p class="text-sm text-gray-600">alexarawles@gmail.com</p>
+                        </div>
+                    </div>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-full transition-colors">Edit</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div>
+                        <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="fullName" value="Your First Name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="nickName" class="block text-sm font-medium text-gray-700">Nick Name</label>
+                        <input type="text" id="nickName" value="Your First Name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                    </div>
+                    <div>
+                        <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                        <select id="gender" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <option>Your First Name</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Non-binary</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                        <select id="country" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <option>Your First Name</option>
+                            <option>United States</option>
+                            <option>Canada</option>
+                            <option>United Kingdom</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+                        <select id="language" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <option>Your First Name</option>
+                            <option>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="timezone" class="block text-sm font-medium text-gray-700">Time Zone</label>
+                        <select id="timezone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <option>Your First Name</option>
+                            <option>EST</option>
+                            <option>PST</option>
+                            <option>GMT</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+    
+
+{% endblock main-section %}

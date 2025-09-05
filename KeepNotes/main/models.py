@@ -9,3 +9,9 @@ class Notes(models.Model):
     def __str__(self):
         return f"{self.notes_title}"
     
+    
+class UserInfos(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    user_imge = models.ImageField(null=True)
+    shared_notes = models.ForeignKey(Notes, on_delete=models.CASCADE, null=True)
+    

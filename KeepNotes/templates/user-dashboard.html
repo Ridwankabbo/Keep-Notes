@@ -1,4 +1,12 @@
 {% extends "user-dashboard-header-footer.html" %}
+{% block nav-items %}
+    <button class="btn btn-add-note" id="add-note-btn">
+        <a href="{% url 'insert-new-notes' %}" class="text-white"><i class="fas fa-plus me-2"></i>New Note</a>
+    </button>
+    <button  class="" id="profile-btn">
+        <a href="{% url "user-profile" %}" class="text-white"><img src="" alt="profile-image"></a>
+    </button>
+{% endblock nav-items %}
 
 {% block main-content %}
 

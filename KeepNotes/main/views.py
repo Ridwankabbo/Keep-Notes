@@ -127,3 +127,7 @@ def DeleteNotes(request, note_id):
     Notes.objects.filter(id=note_id).delete()
     return redirect('user-dashboard')
 
+def user_profile(request):
+    
+    return render(request, 'user_profile.html')
+
