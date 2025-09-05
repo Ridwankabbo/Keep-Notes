@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UserRegistrationForm, UserLoginForm, InsertNewNotes
 from django.contrib.auth.models import User
 from .models import Notes
@@ -85,14 +85,20 @@ def insertNotes(request):
     if request.method == 'POST':
         form = InsertNewNotes(request.POST)
         if form.is_valid():
-            notes_title = form.cleaned_data['notes_title']
-            notes_content = form.cleaned_data['notes_content']
-            # user = User.objects.filter(id = user_id)
-            Notes.objects.create(
-                notes_title = notes_title,
-                notes_text = notes_content, 
-                user_id = user
-            )
+            # notes_title = form.cleaned_data['notes_title']
+            # notes_content = form.cleaned_data['notes_content']
+            # # user = User.objects.filter(id = user_id)
+            # Notes.objects.create(
+            #     notes_title = notes_title,
+            #     notes_text = notes_content, 
+            #     user_id = user
+            # )
+            
+            note_instance = form.save(commit=False)
+            
+            note_instance.user_id = user
+            note_instance.save()
+            
             
             return redirect('user-dashboard')
     else:
@@ -102,10 +108,10 @@ def insertNotes(request):
 
 def EditeNotes(request, notes_id):
     
-    note_to_edite = Notes.objects.filter(id= notes_id)
+    note_to_edite = get_object_or_404(Notes, pk = notes_id, user_id=request.user)
     
     if request.method == 'POST':
-        form = InsertNewNotes(request.POST, initial=note_to_edite)
+        form = InsertNewNotes(request.POST, instance=note_to_edite)
         
         if form.is_valid():
             
@@ -113,7 +119,7 @@ def EditeNotes(request, notes_id):
             
             return redirect('user-dashboard')
     else:
-        form = InsertNewNotes(initial = note_to_edite)
+        form = InsertNewNotes(instance = note_to_edite)
     
     return render(request, 'editeNotes.html', {"form": form})
 

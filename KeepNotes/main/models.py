@@ -6,3 +6,6 @@ class Notes(models.Model):
     notes_title = models.CharField(max_length=255, null=True)
     notes_text = models.CharField(max_length=255, null=True)
     
+    def __str__(self):
+        return f"{self.notes_title}"
+    
