@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Notes
+from .models import Notes, UserInfos
 
 class UserRegistrationForm(forms.Form):
     user_name = forms.CharField(
@@ -58,5 +58,16 @@ class InsertNewNotes(forms.ModelForm):
             
         #     if commit :
         #         note.save()
+        
+class EditeUserInformationForm(forms.ModelForm):
+    
+    class Meta:
+        model = UserInfos
+        fields = [ 'user_imge', 'user_email']
+        
+        widgets={
+            'user_imge' : forms.FileInput(attrs={'class':'form-control', 'placeholder':'Enter our image'}),
+            'user_email' : forms.EmailInput(attrs={'class':'form-control', 'placeholder':'your email'})
+        }
         
         

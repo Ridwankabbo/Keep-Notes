@@ -1,0 +1,12 @@
+{% extends "user-dashboard-header-footer.html" %}
+
+{% block main-section %}
+
+    <div>
+        <form action="{% url "logout" %}" method='post'>
+            {% csrf_token %}
+            <button type='submit' class="p-3 rounded-md bg-red-500">Log out</button>
+        </form>
+    </div>
+
+{% endblock main-section %}

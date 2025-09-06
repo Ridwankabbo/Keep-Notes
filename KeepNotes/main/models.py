@@ -13,5 +13,6 @@ class Notes(models.Model):
 class UserInfos(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     user_imge = models.ImageField(null=True)
+    user_email = models.EmailField(null=True)
     shared_notes = models.ForeignKey(Notes, on_delete=models.CASCADE, null=True)
     

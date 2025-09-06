@@ -9,5 +9,7 @@ urlpatterns = [
     path('insertNewNotes/', views.insertNotes, name='insert-new-notes'),
     path('edite-notes/<int:notes_id>/', views.EditeNotes, name='edite-notes'),
     path('delete-notes/<int:note_id>/', views.DeleteNotes, name='delete-note'),
-    path('user-profile/', views.user_profile, name='user-profile')
+    path('user-profile/', views.user_profile, name='user-profile'),
+    path('edite-user-profile/', views.EditeUserProfile, name='edite-user-profile'),
+    path('user-settings/', views.SettingsPage, name='user-settings')
 ]
