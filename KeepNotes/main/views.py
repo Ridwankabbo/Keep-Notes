@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UserRegistrationForm, UserLoginForm, InsertNewNotes, EditeUserInformationForm
+from .forms import UserRegistrationForm, UserLoginForm, InsertNewNotes, UserInformationForm
 from django.contrib.auth.models import User
 from .models import Notes, UserInfos
 from django.contrib import messages
@@ -73,9 +73,10 @@ def UserLogout(request):
 @login_required
 def user_dashboard(request):
     user = request.user
+    
     context = {
         "Notes":Notes.objects.filter(user_id = user),
-        "user" : UserInfos.objects.filter(id=request.user.id)
+        "user" : User.objects.filter(id=request.user.id)
     }
     print(context.get("Notes"))
     
@@ -130,27 +131,27 @@ def DeleteNotes(request, note_id):
 
 @login_required
 def user_profile(request):
-    
-    context = {
-        'user': UserInfos.objects.filter(id = request.user.id)
-    }
-    
-    return render(request, 'user_profile.html', context)
-
-@login_required
-def EditeUserProfile(request):
-    user_infos = get_object_or_404(UserInfos, user_id= request.user)
-    if request.metod == "POST":
-        form = EditeUserInformationForm(request.POST, instance=user_infos)
+    user_infos = None
+    try:
+        user_infos = UserInfos.objects.get(user=request.user)
+    except UserInfos.DoesNotExist:
+        if request.method == 'POST':
+            form = UserInformationForm(request.POST, request.FILES, instance=user_infos)
         
-        if form.is_valid():
+            if form.is_valid():
+                infos = form.save(commit=False)
+                infos.user_id = request.user
+                infos.save()
             
-            return redirect('user-profile')
+                return redirect('user_profile')
+        else:
+            form = UserInformationForm(instance=user_infos)
     
-    else:
-        form = EditeUserInformationForm(instance=user_infos)
-            
-    return render(request, 'user_profile.html', {'form': form})
+    return render(request, 'user_profile.html', {'form':form})
+
+# @login_required
+# def EditeUserProfile(request):  
+#     return render(request, 'user_profile.html')
 
 @login_required
 def SettingsPage(request):

@@ -1,19 +1,15 @@
 {% extends "user-dashboard-header-footer.html" %}
-{% block nav-items %}
+{% comment %} {% block nav-items %}
     <button class="btn btn-add-note" id="add-note-btn">
         <a href="{% url 'insert-new-notes' %}" class="text-white"><i class="fas fa-plus me-2"></i>New Note</a>
     </button>
     <button  class="" id="profile-btn">
         <a href="{% url "user-profile" %}" class="text-white"><img src="" alt="profile-image"></a>
     </button>
-{% endblock nav-items %}
+{% endblock nav-items %} {% endcomment %}
 
 {% block main-section %}
 
-    <main class="">
-            <!-- Header -->
-            
-        </main>
 
     <!-- Main Content -->
     <main class="flex-1 p-8">
@@ -33,18 +29,43 @@
                     </div>
                 </div> {% endcomment %}
                 {% endfor %}
+                <div>
+                    <button class="px-4 py-2 rounded-md bg-green-500" id="add-note-btn">
+                        <a href="{% url 'insert-new-notes' %}" class="text-white"><i class="fas fa-plus me-2"></i>New Note</a>
+                    </button>
+                    {% comment %} <button  class="" id="profile-btn">
+                        <a href="{% url "user-profile" %}" class="text-white"><img src="" alt="profile-image"></a>
+                    </button> {% endcomment %}
+                </div>
             </header>
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 gap-4 g-3" id="notes-container">
+        <div class="flex" id="notes-container">
             <!-- Notes will be dynamically injected here -->
             {% for note in Notes  %}
-                <div class="p-4 bg-light border border-3 rounded">
-                    <h2 class="text-center">{{note.notes_title}}</h2>
-                    <p class="p-2">{{note.notes_text}}</p>
-                    <div class=" px-5 row  row-cols-2  text-center">
-                        <a href="{% url "edite-notes" notes_id=note.id %}" class="btn btn-warning">Edite</a>
-                        <a href="{% url "delete-note" note_id=note.id %}" class="btn btn-danger"> Delete</a>
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 w-full max-w-sm">
+        
+                <!-- Note Title -->
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{note.notes_title}}</h3>
+        
+                <!-- Note Content -->
+                    <p class="text-gray-600 text-sm mb-4">{{note.notes_text}}</p>
+
+                <!-- Note Actions -->
+                    <div class="flex items-center justify-between text-gray-400">
+                        {% comment %} <span class="text-xs">Created: May 20, 2024</span> {% endcomment %}
+                        <div class="flex space-x-2">
+                            <a href="{% url "edite-notes" notes_id=note.id  %}">
+                                <button class="text-blue-500 hover:text-blue-600 transition-colors duration-200">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </a>
+                            <a href="{% url "delete-note" note_id=note.id %}">
+                                <button class="text-red-500 hover:text-red-600 transition-colors duration-200">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </a>
                     </div>
-                </div> 
+                </div>
+            </div>
             {% endfor %}
         </div>
     </main>

@@ -47,8 +47,8 @@ class InsertNewNotes(forms.ModelForm):
         fields = ['notes_title', 'notes_text']
         
         widgets = {
-            'notes_title' : forms.TextInput(attrs={"class":"form-control", "placeholder":"Enter title"}),
-            'notes_text' : forms.Textarea(attrs={"class":"form-control", "placeholder":"Enter content"})
+            'notes_title' : forms.TextInput(attrs={"class":"w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300", "placeholder":"Enter title"}),
+            'notes_text' : forms.Textarea(attrs={"class":"fw-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 resize-y", "placeholder":"Enter content"})
         }
         
         # def save(self, commit = True):
@@ -59,15 +59,15 @@ class InsertNewNotes(forms.ModelForm):
         #     if commit :
         #         note.save()
         
-class EditeUserInformationForm(forms.ModelForm):
+class UserInformationForm(forms.ModelForm):
     
     class Meta:
         model = UserInfos
         fields = [ 'user_imge', 'user_email']
         
         widgets={
-            'user_imge' : forms.FileInput(attrs={'class':'form-control', 'placeholder':'Enter our image'}),
-            'user_email' : forms.EmailInput(attrs={'class':'form-control', 'placeholder':'your email'})
+            'user_imge' : forms.FileInput(attrs={'class':'p-3', 'placeholder':'Enter our image'}),
+            'user_email' : forms.EmailInput(attrs={'class':' p-3', 'placeholder':'your email'})
         }
         
         
