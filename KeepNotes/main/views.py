@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UserRegistrationForm, UserLoginForm, InsertNewNotes, UserInformationForm
+from .forms import UserRegistrationForm, UserLoginForm, InsertNewNotes, UserInformationForm, ShareNoteSForm
 from django.contrib.auth.models import User
-from .models import Notes, UserInfos
+from .models import Notes, UserInfos, SharedNotes
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -148,6 +148,23 @@ def user_profile(request):
             form = UserInformationForm(instance=user_infos)
     
     return render(request, 'user_profile.html', {'form':form})
+
+def ShareNote(request, note_id):
+    
+    if request.method == 'POST':
+        form = ShareNoteSForm(request.POST)
+        
+        if form.is_valid():
+            form.shared_form_user = request.user
+            form.shared_to_user = User.objects.filter(username= form.cleaned_data['shared_to_user'])
+            form.notes = Notes.objects.filter(id=note_id)
+            form.permission_type = form.cleaned_data['permission_type']
+            
+            return redirect('user-dashboard')
+    else:
+        form = ShareNoteSForm()
+    
+    return render(request, 'sharedNotesForm.html', {'form':form})
 
 # @login_required
 # def EditeUserProfile(request):  

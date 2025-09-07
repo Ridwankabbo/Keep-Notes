@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Notes, UserInfos
+from .models import Notes, UserInfos, SharedNotes
 
 class UserRegistrationForm(forms.Form):
     user_name = forms.CharField(
@@ -69,5 +69,20 @@ class UserInformationForm(forms.ModelForm):
             'user_imge' : forms.FileInput(attrs={'class':'p-3', 'placeholder':'Enter our image'}),
             'user_email' : forms.EmailInput(attrs={'class':' p-3', 'placeholder':'your email'})
         }
+        
+class ShareNoteSForm(forms.Form):
+    
+    shared_to_user = forms.CharField(
+        widget=forms.TextInput()
+    )
+    permission_type = forms.ChoiceField(
+        choices=[
+            ('RD', 'Redable'),
+            {'WD', 'Writable'}
+        ]
+    )
+    
+    
+    
         
         
