@@ -77,7 +77,8 @@ def user_dashboard(request):
     
     context = {
         "Notes":Notes.objects.filter(user_id = user),
-        "user" : User.objects.filter(id=request.user.id)
+        "user" : User.objects.filter(id=request.user.id),
+        "shared_notes" : Notes.objects.filter(sharednotes__share_to_user=user)
     }
     print(context.get("Notes"))
     
@@ -159,13 +160,13 @@ def ShareNote(request, note_id):
         
         if form.is_valid():
             shared_note = form.save(commit=False)
-            shared_note.shared_form_user = request.user
+            shared_note.share_form_user = request.user
             shared_note.notes = note_to_share
             shared_note.date = timezone.now()
             
             shared_note.save()
             
-            messages.success(request, f"Note successfully shared with {shared_note.shared_form_user.username}")
+            messages.success(request, f"Note successfully shared with {shared_note.share_form_user.username}")
             
             return redirect('user-dashboard')
     else:

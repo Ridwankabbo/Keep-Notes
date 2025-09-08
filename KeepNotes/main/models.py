@@ -21,10 +21,15 @@ class SharedNotes(models.Model):
     class Permission_type(models.TextChoices):
         READ = 'RD', 'Readable'
         WRITE = 'WR', 'Writable'
+    
+    class status_type(models.TextChoices):
+        ACTIVE = 'AC', 'Active'
+        DISABLE = 'DS', 'Disable'
     share_from_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='shared_form_me')
     share_to_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='shared_to_me')
     notes = models.ForeignKey(Notes, on_delete=models.CASCADE, null=True)
     permission_type = models.CharField(max_length=2, choices=Permission_type.choices)
+    status = models.CharField(max_length=2, choices=status_type.choices, default=status_type.ACTIVE)
     date = models.DateTimeField()
     
     def __str__(self):
