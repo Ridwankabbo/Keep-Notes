@@ -70,17 +70,16 @@ class UserInformationForm(forms.ModelForm):
             'user_email' : forms.EmailInput(attrs={'class':' p-3', 'placeholder':'your email'})
         }
         
-class ShareNoteSForm(forms.Form):
+class ShareNoteSForm(forms.ModelForm):
+    class Meta:
+        model = SharedNotes
+        fields = ['share_to_user', 'permission_type']
+        
+        widgets = {
+            'permission_type' : forms.RadioSelect(attrs={'class':'custom-radio-group'}),
+            # 'share_to_user' : forms.TextInput
+        }
     
-    shared_to_user = forms.CharField(
-        widget=forms.TextInput()
-    )
-    permission_type = forms.ChoiceField(
-        choices=[
-            ('RD', 'Redable'),
-            {'WD', 'Writable'}
-        ]
-    )
     
     
     

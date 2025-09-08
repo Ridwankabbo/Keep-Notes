@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 # Create your views here.
 
@@ -151,14 +152,20 @@ def user_profile(request):
 
 def ShareNote(request, note_id):
     
+    note_to_share = get_object_or_404(Notes, pk=note_id, user_id=request.user)
+    
     if request.method == 'POST':
         form = ShareNoteSForm(request.POST)
         
         if form.is_valid():
-            form.shared_form_user = request.user
-            form.shared_to_user = User.objects.filter(username= form.cleaned_data['shared_to_user'])
-            form.notes = Notes.objects.filter(id=note_id)
-            form.permission_type = form.cleaned_data['permission_type']
+            shared_note = form.save(commit=False)
+            shared_note.shared_form_user = request.user
+            shared_note.notes = note_to_share
+            shared_note.date = timezone.now()
+            
+            shared_note.save()
+            
+            messages.success(request, f"Note successfully shared with {shared_note.shared_form_user.username}")
             
             return redirect('user-dashboard')
     else:
