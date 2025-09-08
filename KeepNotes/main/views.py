@@ -150,7 +150,7 @@ def user_profile(request):
             form = UserInformationForm(instance=user_infos)
     
     return render(request, 'user_profile.html', {'form':form})
-
+@login_required
 def ShareNote(request, note_id):
     
     note_to_share = get_object_or_404(Notes, pk=note_id, user_id=request.user)
@@ -160,7 +160,7 @@ def ShareNote(request, note_id):
         
         if form.is_valid():
             shared_note = form.save(commit=False)
-            shared_note.share_form_user = request.user
+            shared_note.share_from_user = request.user
             shared_note.notes = note_to_share
             shared_note.date = timezone.now()
             
@@ -174,9 +174,11 @@ def ShareNote(request, note_id):
     
     return render(request, 'sharedNotesForm.html', {'form':form})
 
-# @login_required
-# def EditeUserProfile(request):  
-#     return render(request, 'user_profile.html')
+def disable_shared_note(request, note_id):
+    note_to_disable = get_object_or_404(SharedNotes, notes_id=note_id)
+    note_to_disable.status = SharedNotes.status_type.DISABLE
+    note_to_disable.save()
+    return redirect('user-dashboard')
 
 @login_required
 def SettingsPage(request):

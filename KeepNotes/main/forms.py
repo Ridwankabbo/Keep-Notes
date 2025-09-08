@@ -77,7 +77,6 @@ class ShareNoteSForm(forms.ModelForm):
         
         widgets = {
             'permission_type' : forms.RadioSelect(attrs={'class':'custom-radio-group'}),
-            # 'share_to_user' : forms.TextInput
         }
     
     
