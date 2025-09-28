@@ -44,11 +44,12 @@ class InsertNewNotes(forms.ModelForm):
     
     class Meta:
         model = Notes
-        fields = ['notes_title', 'notes_text']
+        fields = ['notes_title', 'notes_text', 'image']
         
         widgets = {
             'notes_title' : forms.TextInput(attrs={"class":"w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300", "placeholder":"Enter title"}),
-            'notes_text' : forms.Textarea(attrs={"class":"fw-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 resize-y", "placeholder":"Enter content"})
+            'notes_text' : forms.Textarea(attrs={"class":"fw-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 resize-y", "placeholder":"Enter content"}),
+            'image': forms.FileInput(attrs={"class":"w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 mb-4", "placeholder":"Enter image"})
         }
         
         # def save(self, commit = True):

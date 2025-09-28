@@ -5,6 +5,7 @@ class Notes(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     notes_title = models.CharField(max_length=255, null=True)
     notes_text = models.CharField(max_length=255, null=True)
+    image = models.ImageField(upload_to="notes_images", null=True, blank=True)
     
     def __str__(self):
         return f"{self.notes_title}"

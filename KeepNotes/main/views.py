@@ -111,7 +111,7 @@ def insertNotes(request):
     return render(request, 'insertNotes.html', {'form': form})
 @login_required
 def EditeNotes(request, notes_id):
-    
+    notes = None
     note_to_edite = get_object_or_404(Notes, pk = notes_id, user_id=request.user)
     
     if request.method == 'POST':
@@ -119,13 +119,18 @@ def EditeNotes(request, notes_id):
         
         if form.is_valid():
             
-            form.save()
+            notes = form.save()
             
             return redirect('user-dashboard')
     else:
         form = InsertNewNotes(instance = note_to_edite)
+        
+        context = {
+            'form': form,
+            'note':note_to_edite
+        }
     
-    return render(request, 'editeNotes.html', {"form": form})
+    return render(request, 'editeNotes.html', context)
 
 def DeleteNotes(request, note_id):
     Notes.objects.filter(id=note_id).delete()
