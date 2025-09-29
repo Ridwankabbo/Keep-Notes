@@ -111,15 +111,14 @@ def insertNotes(request):
     return render(request, 'insertNotes.html', {'form': form})
 @login_required
 def EditeNotes(request, notes_id):
-    notes = None
     note_to_edite = get_object_or_404(Notes, pk = notes_id, user_id=request.user)
     
     if request.method == 'POST':
-        form = InsertNewNotes(request.POST, instance=note_to_edite)
+        form = InsertNewNotes(request.POST, request.FILES, instance=note_to_edite)
         
         if form.is_valid():
             
-            notes = form.save()
+            form.save()
             
             return redirect('user-dashboard')
     else:
