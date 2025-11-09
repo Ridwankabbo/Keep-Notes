@@ -78,7 +78,7 @@
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 w-full max-w-sm">
         
                 <!-- Note Title -->
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{shared_note.notes_title}}</h3>
+                    <h3 class="text-xl font-bold text-gray-800mb-2 "><a href="{% url "show-notes" id=shared_note.id %}">{{shared_note.notes_title}}</a></h3>
         
                 <!-- Note Content -->
                     <p class="text-gray-600 text-sm mb-4">{{shared_note.notes_text}}</p>
@@ -87,6 +87,13 @@
                     <div class="flex items-center justify-between text-gray-400">
                         {% comment %} <span class="text-xs">Created: May 20, 2024</span> {% endcomment %}
                         <div class="flex space-x-2">
+                            {% if shared_note.permission_type != 'RD' %}
+                                <a href="{% url "disable-shared-note" note_id=shared_note.id %}">
+                                    <button class="text-blue-500 hover:text-red-600 transition-colors duration-200">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </a>
+                            {% endif %}
                             <a href="{% url "disable-shared-note" note_id=shared_note.id %}">
                                 <button class="text-red-500 hover:text-red-600 transition-colors duration-200">
                                     <i class="fas fa-trash-alt"></i>

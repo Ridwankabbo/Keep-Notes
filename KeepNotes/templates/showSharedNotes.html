@@ -1,0 +1,62 @@
+{% extends "user-dashboard-header-footer.html" %}
+
+{% block main-section %}
+            <section class="container">
+                <div>
+                    <h2 class="text-center text-[45px] font-bold">Notes</h2>
+                </div>
+                <div>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p class="py-3">This note is shared by {{note.user_id}}</p>
+                    <div class='p-4'>
+                        <label for="note-title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                        {{note.notes_title}}
+                        
+                    </div>
+                    <div>
+                        <div class="flex jusfity-around p-4">
+                            <div class='p-3'>
+                                <label for="note-content" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                            {{note.notes_text}}
+                            </div>
+
+                            <div class='p-3'>
+                            {% if note.image %}
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Current Image</label>
+                                <img src="{{ note.image.url }}" 
+                                    alt="{{ note.notes_title }} Image" class="rounded-3xl"
+                                    style ="height:250px;"
+                                    >
+                            {% else %}
+                                <p>No current image.</p>
+                            {% endif %}
+                        </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class='p-4'>
+                        <label for="note-content" class="block text-sm font-medium text-gray-700 mb-1">Image</label>
+                        {{note.image}}
+                        
+                    </div>
+                    <div class="flex flex-col sm:flex-row space-y-4 items-center sm:space-y-0 sm:space-x-4">
+                        {% if note.permission_type == 'Writable' %}
+                            <button type="submit" class="w-full sm:w-auto flex-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-full transition-colors shadow-lg">
+                                <i class="fas fa-plus mr-2"></i> Save Note
+                            </button>
+                        {% endif %}
+                        <a href="{% url "user-dashboard" %}">
+                            <button type="button" class="w-full sm:w-auto flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-full transition-colors shadow-md">
+                                <i class="fas fa-times mr-2"></i> Cancel
+                            </button>
+                        </a>
+                    </div>
+                    </form>
+                    
+                </div>
+            </section>
+
+{% endblock main-section %}

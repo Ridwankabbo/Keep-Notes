@@ -14,7 +14,8 @@ urlpatterns = [
     path('share-notes/<int:note_id>/', views.ShareNote, name='share-note'),
     path('user-profile/', views.user_profile, name='user-profile'),
     path('user-settings/', views.SettingsPage, name='user-settings'),
-    path('disable-shared-note/<int:note_id>/', views.disable_shared_note, name='disable-shared-note')
+    path('disable-shared-note/<int:note_id>/', views.disable_shared_note, name='disable-shared-note'),
+    path('user-dashboard/note/<int:id>/', views.ShowNotes, name='show-notes')
 ]
 
 if settings.DEBUG:

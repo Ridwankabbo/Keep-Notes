@@ -131,9 +131,20 @@ def EditeNotes(request, notes_id):
     
     return render(request, 'editeNotes.html', context)
 
+def ShowNotes(request, id):
+    note_to_show = get_object_or_404(Notes, pk=id)
+    context={
+        'note':note_to_show
+    }
+    
+    return render(request, 'showSharedNotes.html', context)
+
+
 def DeleteNotes(request, note_id):
     Notes.objects.filter(id=note_id).delete()
     return redirect('user-dashboard')
+
+
 
 @login_required
 def user_profile(request):
